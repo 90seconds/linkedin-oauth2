@@ -12,7 +12,6 @@ module LinkedIn
   #     https://developer.linkedin.com/documents/profile-fields
   #   @options opts [String] :secure (true) specify if urls in the
   #     response should be https
-  #   @options opts [String] :"secure-urls" (true) alias to secure option
   #
   # @!macro share_input_fields
   #   @param [Hash] share content of the share

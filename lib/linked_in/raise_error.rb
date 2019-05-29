@@ -12,5 +12,3 @@ module LinkedIn
     end
   end
 end
-
-Faraday::Response.register_middleware :linkedin_raise_error => LinkedIn::RaiseError

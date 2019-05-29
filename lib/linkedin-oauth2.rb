@@ -28,6 +28,7 @@ require "linked_in/api_resource"
 # All of the endpoints
 require "linked_in/jobs"
 require "linked_in/people"
+require "linked_in/profile"
 require "linked_in/search"
 require "linked_in/groups"
 require "linked_in/companies"

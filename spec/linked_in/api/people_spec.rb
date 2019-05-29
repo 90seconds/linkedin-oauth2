@@ -19,13 +19,6 @@ describe LinkedIn::People do
     end
   end
 
-  # Secure
-  it "accepts secure-urls param via secure option" do
-    VCR.use_cassette("people profile own secure") do
-      verify api.profile(secure: true)
-    end
-  end
-
   # Language
   it "gets profiles in a different language" do
     VCR.use_cassette("people profile lang spanish") do
@@ -185,5 +178,5 @@ describe LinkedIn::People do
       verify result
       expect(result["all"].length).to eq 2
     end
-  end  
+  end
 end

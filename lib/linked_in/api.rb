@@ -20,7 +20,8 @@ module LinkedIn
                            :job_suggestions,
                            :add_job_bookmark
 
-    def_delegators :@people, :profile,
+    def_delegators :@people, :me,
+                             :profile,
                              :skills,
                              :connections,
                              :picture_urls,
@@ -74,12 +75,14 @@ module LinkedIn
 
     def default_params
       # https//developer.linkedin.com/documents/authentication
-      return {oauth2_access_token: @access_token.token}
+      return {}
     end
 
     def default_headers
       # https://developer.linkedin.com/documents/api-requests-json
-      return {"x-li-format" => "json"}
+      return {
+        "Authorization" => "Bearer #{@access_token.token}"
+      }
     end
 
     def verify_access_token!(access_token)

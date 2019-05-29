@@ -32,9 +32,9 @@ module LinkedIn
     # @param [Hash] options the options to create the client with
     # @option options [Symbol] :token_method (:post) HTTP method to use to
     #   request token (:get or :post)
-    # @option options [Hash] :connection_opts ({}) Hash of connection options 
+    # @option options [Hash] :connection_opts ({}) Hash of connection options
     #   to pass to initialize Faraday with
-    # @option options [FixNum] :max_redirects (5) maximum number of redirects 
+    # @option options [FixNum] :max_redirects (5) maximum number of redirects
     #   to follow
     # @option options [Boolean] :raise_errors (true) whether or not to
     #   raise an error on malformed responses
@@ -125,7 +125,7 @@ module LinkedIn
         check_access_code_url!(options)
       end
 
-      tok = self.auth_code.get_token(code, options)
+      tok = self.auth_code.get_token(code, options.stringify_keys)
       self.access_token = LinkedIn::AccessToken.new(tok.token,
                                                     tok.expires_in,
                                                     tok.expires_at)

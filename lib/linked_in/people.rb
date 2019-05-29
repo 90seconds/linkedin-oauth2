@@ -26,6 +26,19 @@ module LinkedIn
     #     @macro profile_options
     #   @return [LinkedIn::Mash]
 
+    def me(options={})
+      projections = []
+      if fields = options[:fields]
+        projections << 'id' if fields.include?('id')
+        projections << 'localizedFirstName' if fields.include?('first-name') || fields.include?('formatted-name')
+        projections << 'localizedLastName' if fields.include?('last-name') || fields.include?('formatted-name')
+        projections << 'profilePicture(displayImage~:playableStreams)' if fields.include?('picture-url')
+      end
+
+      data = get("/me", projection: "(#{projections.join(',')})")
+      ::LinkedIn::Profile.new(@connection, data)
+    end
+
     # Retrieve a member's LinkedIn profile.
     #
     # Required permissions: r_basicprofile, r_fullprofile
@@ -73,7 +86,7 @@ module LinkedIn
     end
 
     # Retrieve the picture url
-    # http://api.linkedin.com/v1/people/~/picture-urls::(original)
+    # http://api.linkedin.com/v2/people/~/picture-urls::(original)
     #
     # Permissions: r_network
     #
@@ -95,15 +108,6 @@ module LinkedIn
       options = parse_id(id, options)
       path = "#{profile_path(options, false)}/skills"
       get(path, options)
-    end     
-
-
-    protected ############################################################
-
-
-    def get(path, options)
-      options[:"secure-urls"] = true unless options[:secure] == false
-      super path, options
     end
 
 
