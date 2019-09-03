@@ -28,9 +28,13 @@ module LinkedIn
 
     def picture_url
       pictures = @data.dig('profilePicture', 'displayImage~', 'elements')
+      return unless pictures
       return if pictures.none?
 
-      pictures.last.dig('identifiers', 0, 'identifier')
+      picture = pictures.last
+      return unless picture
+      
+      picture.dig('identifiers', 0, 'identifier')
     end
   end
 end
